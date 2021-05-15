@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-twobeer-dev-154304-authRole",
+      "UnauthRoleArn": "arn:aws:iam::580055963413:role/amplify-twobeer-dev-154304-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::580055963413:role/amplify-twobeer-dev-154304-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-twobeer-dev-154304-deployment",
+      "UnauthRoleName": "amplify-twobeer-dev-154304-unauthRole",
+      "StackName": "amplify-twobeer-dev-154304",
+      "StackId": "arn:aws:cloudformation:us-east-1:580055963413:stack/amplify-twobeer-dev-154304/64163a00-b5ad-11eb-9b78-120fbf0f0187",
+      "AmplifyAppId": "d1jqm3npvii0u"
+    }
+  }
+}
