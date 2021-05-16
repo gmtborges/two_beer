@@ -4,6 +4,7 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 import 'models/Beer.dart';
@@ -125,9 +126,19 @@ class BeersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return beers.length >= 1
-        ? ListView(
-            padding: EdgeInsets.all(8),
-            children: beers.map((beer) => BeerItem(beer: beer)).toList())
+        ? Column(
+            children: [
+              ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(8),
+                  itemCount: beers.length,
+                  itemBuilder: (ctx, idx) => BeerItem(
+                        beer: beers[idx],
+                      )),
+              SignInButton(Buttons.Google, onPressed: () => {}),
+              SignInButton(Buttons.Facebook, onPressed: () => {}),
+            ],
+          )
         : Center(child: Text('Tap button below to add a beer!'));
   }
 }
