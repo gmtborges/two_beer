@@ -5,6 +5,7 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:two_beer/repository/beer_repository.dart';
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 import 'models/Beer.dart';
@@ -36,10 +37,10 @@ class _BeersPageState extends State<BeersPage> {
   List<Beer> _beers;
   StreamSubscription _subscription;
 
-  final AmplifyDataStore _dataStorePlugin =
+  final AmplifyDataStore _amplifyDataStore =
       AmplifyDataStore(modelProvider: ModelProvider.instance);
-  final AmplifyAPI _apiPlugin = AmplifyAPI();
-  final AmplifyAuthCognito _authPlugin = AmplifyAuthCognito();
+  final AmplifyAPI _amplifyAPI = AmplifyAPI();
+  final AmplifyAuthCognito _amplifyAuthCognito = AmplifyAuthCognito();
 
   @override
   void initState() {
@@ -73,7 +74,8 @@ class _BeersPageState extends State<BeersPage> {
 
   Future<void> _configureAmplify() async {
     try {
-      await Amplify.addPlugins([_dataStorePlugin, _apiPlugin, _authPlugin]);
+      await Amplify.addPlugins(
+          [_amplifyDataStore, _amplifyAPI, _amplifyAuthCognito]);
       await Amplify.configure(amplifyconfig);
     } catch (e) {
       print('An error occurred while configuring Amplify: $e');
@@ -81,8 +83,9 @@ class _BeersPageState extends State<BeersPage> {
   }
 
   Future<void> _fetchBeers() async {
+    final beerRepository = new BeerRepository(_amplifyDataStore);
     try {
-      List<Beer> updatedBeers = await Amplify.DataStore.query(Beer.classType);
+      List<Beer> updatedBeers = await beerRepository.fetchBeers();
 
       setState(() {
         _beers = updatedBeers;
