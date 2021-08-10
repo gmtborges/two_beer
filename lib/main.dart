@@ -5,6 +5,7 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:two_beer/pages/home_page.dart';
 import 'package:two_beer/repository/beer_repository.dart';
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
       ),
       title: 'Amplified Beer',
-      home: BeersPage(),
+      home: HomePage(),
     );
   }
 }
