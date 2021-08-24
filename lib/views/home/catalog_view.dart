@@ -19,7 +19,7 @@ class Catalog extends StatelessWidget {
                   beerType: 'Lager',
                   beerIBU: 20,
                   beerRating: 5,
-                  beerABV: '4.5%',
+                  beerABV: 4.5,
                   obs:
                       'Ótima lager de Ribeirão Preto, fácil de encontrar e combina com qualquer ocasião.',
                 ),
@@ -29,7 +29,7 @@ class Catalog extends StatelessWidget {
                   beerName: 'Baden Baden Golden',
                   beerType: 'Weiss',
                   beerIBU: 10,
-                  beerABV: '4.5%',
+                  beerABV: 4.9,
                   beerRating: 4,
                   obs: 'Weiss com leve sabor de canela, muito boa!',
                 ),
@@ -39,7 +39,7 @@ class Catalog extends StatelessWidget {
                   beerName: 'Baden Baden Golden',
                   beerType: 'Weiss',
                   beerIBU: 10,
-                  beerABV: '4.5%',
+                  beerABV: 5.5,
                   beerRating: 4,
                   obs: 'Weiss com leve sabor de canela, muito boa!',
                 ),
@@ -56,7 +56,7 @@ class Beer extends StatelessWidget {
   final String beerName;
   final String beerType;
   final int beerIBU;
-  final String beerABV;
+  final double beerABV;
   final int beerRating;
   final String obs;
 
@@ -81,14 +81,13 @@ class Beer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 180,
-                child: FadeInImage.assetNetwork(
-                  width: 160,
-                  fit: BoxFit.contain,
-                  image: imageSrc,
-                  placeholder: 'img/img-placeholder.png',
-                ),
-              ),
+                  height: 180,
+                  child: FadeInImage.assetNetwork(
+                    width: 160,
+                    fit: BoxFit.contain,
+                    image: imageSrc,
+                    placeholder: 'img/img-placeholder.png',
+                  )),
               Container(
                 height: 180,
                 child: VerticalDivider(
@@ -108,15 +107,9 @@ class Beer extends StatelessWidget {
               Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: null,
-                      iconSize: 18,
-                    ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 4, 12, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 12, 12, 0),
                       child: this.isFavorite
                           ? Icon(
                               Icons.favorite,
@@ -129,15 +122,6 @@ class Beer extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            margin: EdgeInsets.all(8),
-            child: Text(
-              obs,
-              style: TextStyle(
-                fontSize: 12,
-              ),
-            ),
-          ),
         ],
       ),
     );
@@ -148,7 +132,7 @@ class Infos extends StatelessWidget {
   final String beerName;
   final String beerType;
   final int beerIBU;
-  final String beerABV;
+  final double beerABV;
   final int beerRating;
 
   const Infos(
@@ -164,22 +148,25 @@ class Infos extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.fromLTRB(16, 10, 0, 0),
+        margin: EdgeInsets.fromLTRB(16, 16, 0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 10),
               child: Text(
                 beerName,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 4),
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: BeerRating(
+                  value: beerRating,
+                )),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 4),
               child: Column(
                 children: [
-                  Text('TIPO', style: TextStyle(fontSize: 8)),
                   TagBeerType(
                     beerType: beerType,
                     text: beerType,
@@ -187,39 +174,61 @@ class Infos extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 4),
-              child: Column(
-                children: [
-                  Text('IBU', style: TextStyle(fontSize: 8)),
-                  TagBeerIBU(
-                    beerIBU: beerIBU,
-                    text: beerIBU.toString(),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 4),
-              child: Column(
-                children: [
-                  Text('ABV', style: TextStyle(fontSize: 8)),
-                  Text(
-                    beerABV,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  child: Column(
+                    children: [
+                      Text('IBU'),
+                      TagBeerIBU(
+                        beerIBU: beerIBU,
+                        text: beerIBU.toString(),
+                      )
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  child: Column(
+                    children: [
+                      Text('ABV'),
+                      TagBeerABV(beerABV: beerABV),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Container(
-                margin: EdgeInsets.only(top: 4),
-                child: BeerRating(
-                  value: beerRating,
-                ))
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class TagBeerABV extends StatelessWidget {
+  const TagBeerABV({
+    Key key,
+    @required this.beerABV,
+  }) : super(key: key);
+
+  final double beerABV;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.grey[100],
+      borderRadius: BorderRadius.horizontal(
+        left: Radius.circular(10),
+        right: Radius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Text(
+          beerABV.toString() + '%',
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
     );
@@ -247,7 +256,6 @@ class TagBeerType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 2),
       child: Material(
         color: _getColorByBeerType(beerType),
         borderRadius: BorderRadius.horizontal(
@@ -255,10 +263,10 @@ class TagBeerType extends StatelessWidget {
           right: Radius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(5.0),
           child: Text(
             text,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(fontWeight: FontWeight.w600),
           ),
         ),
       ),
@@ -287,7 +295,6 @@ class TagBeerIBU extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 2),
       child: Material(
         color: _getColorByBeerIBU(beerIBU),
         borderRadius: BorderRadius.horizontal(
@@ -298,7 +305,7 @@ class TagBeerIBU extends StatelessWidget {
           padding: const EdgeInsets.all(4.0),
           child: Text(
             text,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(fontWeight: FontWeight.w600),
           ),
         ),
       ),
