@@ -5,7 +5,7 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:two_beer/pages/home_page.dart';
+import 'package:two_beer/pages/home/home_page.dart';
 import 'package:two_beer/repository/beer_repository.dart';
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
@@ -19,9 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme:
-          ThemeData(primarySwatch: Colors.amber, fontFamily: 'SourceSansPro'),
-      title: 'Amplified Beer',
+      theme: ThemeData(
+        fontFamily: 'SourceSansPro',
+        colorScheme:
+            ColorScheme.fromSwatch().copyWith(primary: Colors.amber[700]),
+      ),
+      title: '2Beer',
       home: HomePage(),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../views/home/catalog_view.dart';
+import 'catalog_view.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,22 +18,22 @@ class _HomePageState extends State<HomePage> {
   Widget _selectView(int index) {
     switch (index) {
       case 0:
-        return Catalog();
+        return CatalogView();
         break;
       case 1:
-        return AddBeer();
+        return AddBeerView();
         break;
       case 2:
-        return Lovers();
+        return LoversView();
         break;
       case 3:
-        return Profile();
+        return ProfileView();
         break;
       default:
         setState(() {
           _selectedIndex = 0;
         });
-        return Catalog();
+        return CatalogView();
     }
   }
 
@@ -41,7 +41,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('2Beer'),
+        title: Text(
+          '2Beer',
+          style: TextStyle(
+            color: Colors.grey[800],
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: _selectedIndex == 0
             ? <Widget>[
                 IconButton(icon: Icon(Icons.search), onPressed: null),
@@ -51,7 +57,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _selectView(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.amber[700],
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             label: 'Catálogo',
@@ -78,7 +83,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class AddBeer extends StatelessWidget {
+class AddBeerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,7 +101,7 @@ class AddBeer extends StatelessWidget {
   }
 }
 
-class Lovers extends StatelessWidget {
+class LoversView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,7 +119,7 @@ class Lovers extends StatelessWidget {
   }
 }
 
-class Profile extends StatelessWidget {
+class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
