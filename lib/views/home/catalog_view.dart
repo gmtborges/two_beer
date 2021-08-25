@@ -4,46 +4,59 @@ class Catalog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[100],
-      padding: EdgeInsets.all(16),
       child: ListView.builder(
           itemCount: 1,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                Beer(
-                  isFavorite: true,
-                  imageSrc:
-                      'https://emporiodacerveja.vtexassets.com/arquivos/ids/173479/ribeiraoLager1_1000x1000px.jpg',
-                  beerName: 'Ribeirão Lager',
-                  beerType: 'Lager',
-                  beerIBU: 20,
-                  beerRating: 5,
-                  beerABV: 4.5,
-                  obs:
-                      'Ótima lager de Ribeirão Preto, fácil de encontrar e combina com qualquer ocasião.',
-                ),
-                Beer(
-                  imageSrc:
-                      'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v8128878785442628016/products/204726_1_Cerveja-Baden-Baden-Golden-Garrafa-600ml.jpg',
-                  beerName: 'Baden Baden Golden',
-                  beerType: 'Weiss',
-                  beerIBU: 10,
-                  beerABV: 4.9,
-                  beerRating: 4,
-                  obs: 'Weiss com leve sabor de canela, muito boa!',
-                ),
-                Beer(
-                  imageSrc:
-                      'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v8128878785442628016/products/204726_1_Cerveja-Baden-Baden-Golden-Garrafa-600ml.jpg',
-                  beerName: 'Baden Baden Golden',
-                  beerType: 'Weiss',
-                  beerIBU: 10,
-                  beerABV: 5.5,
-                  beerRating: 4,
-                  obs: 'Weiss com leve sabor de canela, muito boa!',
-                ),
-              ],
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Column(
+                children: [
+                  Beer(
+                    isFavorite: true,
+                    imageSrc:
+                        'https://emporiodacerveja.vtexassets.com/arquivos/ids/173479/ribeiraoLager1_1000x1000px.jpg',
+                    beerName: 'Ribeirão Lager',
+                    beerType: 'Lager',
+                    beerIBU: 20,
+                    beerRating: 5,
+                    beerABV: 4.5,
+                    obs:
+                        'Ótima lager de Ribeirão Preto, fácil de encontrar e combina com qualquer ocasião.',
+                  ),
+                  Beer(
+                    imageSrc:
+                        'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v8128878785442628016/products/204726_1_Cerveja-Baden-Baden-Golden-Garrafa-600ml.jpg',
+                    beerName: 'Baden Baden Golden',
+                    beerType: 'Weiss',
+                    beerIBU: 10,
+                    beerABV: 4.9,
+                    beerRating: 4,
+                    obs: 'Weiss com leve sabor de canela, muito boa!',
+                  ),
+                  Beer(
+                    imageSrc:
+                        'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v8128878785442628016/products/204726_1_Cerveja-Baden-Baden-Golden-Garrafa-600ml.jpg',
+                    beerName: 'Baden Baden Golden',
+                    beerType: 'Weiss',
+                    beerIBU: 10,
+                    beerABV: 5.5,
+                    beerRating: 4,
+                    obs: 'Weiss com leve sabor de canela, muito boa!',
+                  ),
+                  Beer(
+                    isFavorite: true,
+                    imageSrc:
+                        'https://emporiodacerveja.vtexassets.com/arquivos/ids/173479/ribeiraoLager1_1000x1000px.jpg',
+                    beerName: 'Ribeirão Lager',
+                    beerType: 'Lager',
+                    beerIBU: 20,
+                    beerRating: 5,
+                    beerABV: 4.5,
+                    obs:
+                        'Ótima lager de Ribeirão Preto, fácil de encontrar e combina com qualquer ocasião.',
+                  ),
+                ],
+              ),
             );
           }),
     );
@@ -75,13 +88,14 @@ class Beer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 4,
       child: Column(
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  height: 180,
+                  height: 160,
                   child: FadeInImage.assetNetwork(
                     width: 160,
                     fit: BoxFit.contain,
@@ -91,7 +105,7 @@ class Beer extends StatelessWidget {
               Container(
                 height: 180,
                 child: VerticalDivider(
-                  color: Colors.grey[400],
+                  color: Colors.grey[300],
                   thickness: 1,
                   width: 1,
                   indent: 10,
@@ -105,19 +119,35 @@ class Beer extends StatelessWidget {
                   beerABV: beerABV,
                   beerRating: beerRating),
               Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 12, 12, 0),
-                      child: this.isFavorite
-                          ? Icon(
-                              Icons.favorite,
-                              color: Colors.red[700],
+                child: Container(
+                  height: 180,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      this.isFavorite
+                          ? Container(
+                              padding: EdgeInsets.fromLTRB(0, 6, 6, 0),
+                              child: Icon(
+                                Icons.favorite,
+                                color: Colors.red[700],
+                                size: 20,
+                              ),
                             )
-                          : null,
-                    ),
-                  ],
+                          : Container(
+                              height: 20,
+                              width: 20,
+                            ),
+                      Container(
+                        child: IconButton(
+                          onPressed: () => {},
+                          icon: Icon(
+                            Icons.chevron_right,
+                            color: Colors.grey[500],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
@@ -150,12 +180,11 @@ class Infos extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.fromLTRB(16, 16, 0, 0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               child: Text(
                 beerName,
-                style: TextStyle(fontWeight: FontWeight.w600),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             Container(
@@ -169,7 +198,6 @@ class Infos extends StatelessWidget {
                 children: [
                   TagBeerType(
                     beerType: beerType,
-                    text: beerType,
                   )
                 ],
               ),
@@ -185,7 +213,6 @@ class Infos extends StatelessWidget {
                       Text('IBU'),
                       TagBeerIBU(
                         beerIBU: beerIBU,
-                        text: beerIBU.toString(),
                       )
                     ],
                   ),
@@ -228,7 +255,7 @@ class TagBeerABV extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         child: Text(
           beerABV.toString() + '%',
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -237,7 +264,6 @@ class TagBeerABV extends StatelessWidget {
 
 class TagBeerType extends StatelessWidget {
   final String beerType;
-  final String text;
 
   Color _getColorByBeerType(String beerType) {
     switch (beerType) {
@@ -252,7 +278,7 @@ class TagBeerType extends StatelessWidget {
     }
   }
 
-  const TagBeerType({Key key, this.beerType, this.text}) : super(key: key);
+  const TagBeerType({Key key, this.beerType}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -265,8 +291,8 @@ class TagBeerType extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Text(
-            text,
-            style: TextStyle(fontWeight: FontWeight.w600),
+            beerType,
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -276,7 +302,6 @@ class TagBeerType extends StatelessWidget {
 
 class TagBeerIBU extends StatelessWidget {
   final int beerIBU;
-  final String text;
 
   Color _getColorByBeerIBU(int beerIBU) {
     switch (beerIBU) {
@@ -291,7 +316,7 @@ class TagBeerIBU extends StatelessWidget {
     }
   }
 
-  const TagBeerIBU({Key key, this.beerIBU, this.text}) : super(key: key);
+  const TagBeerIBU({Key key, this.beerIBU}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -304,8 +329,8 @@ class TagBeerIBU extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Text(
-            text,
-            style: TextStyle(fontWeight: FontWeight.w600),
+            beerIBU.toString(),
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),

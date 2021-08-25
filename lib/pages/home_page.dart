@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _selectView(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.amber[700],
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             label: 'Catálogo',
@@ -72,7 +73,6 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.grey[200],
       ),
     );
   }
@@ -106,7 +106,7 @@ class Lovers extends StatelessWidget {
         children: [
           Text(
             'Buscar apreciadores',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
           )
         ],
       ),
