@@ -1,9 +1,10 @@
 type Beer @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
-  abv: Float
+  type: String
   ibu: Int
-  description: String
+  abv: Float
   score: Int
   isFavorite: Boolean
 }
+ 

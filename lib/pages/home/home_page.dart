@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'add_beer_view.dart';
 import 'catalog_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,16 +20,12 @@ class _HomePageState extends State<HomePage> {
     switch (index) {
       case 0:
         return CatalogView();
-        break;
       case 1:
         return AddBeerView();
-        break;
       case 2:
         return LoversView();
-        break;
       case 3:
         return ProfileView();
-        break;
       default:
         setState(() {
           _selectedIndex = 0;
@@ -78,24 +75,6 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-      ),
-    );
-  }
-}
-
-class AddBeerView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            'Adicionar cerveja',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          )
-        ],
       ),
     );
   }

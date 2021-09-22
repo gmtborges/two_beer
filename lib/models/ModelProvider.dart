@@ -1,5 +1,5 @@
 /*
-* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -22,26 +22,22 @@ export 'Beer.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "837ec05e8e28c37e8a8f2c00725994a1";
+  String version = "f56a9b857416d67a34044a11bfa08c58";
   @override
   List<ModelSchema> modelSchemas = [Beer.schema];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
-
+  
   ModelType getModelTypeByModelName(String modelName) {
-    switch (modelName) {
-      case "Beer":
-        {
-          return Beer.classType;
-        }
-        break;
-      default:
-        {
-          throw Exception(
-              "Failed to find model in model provider for model name: " +
-                  modelName);
-        }
+    switch(modelName) {
+    case "Beer": {
+    return Beer.classType;
+    }
+    break;
+    default: {
+    throw Exception("Failed to find model in model provider for model name: " + modelName);
+    }
     }
   }
 }

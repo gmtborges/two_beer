@@ -1,69 +1,126 @@
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
+import 'package:two_beer/amplifyconfiguration.dart';
+import 'package:two_beer/models/Beer.dart';
+import 'package:two_beer/models/ModelProvider.dart';
+import 'package:two_beer/repository/beer_repository.dart';
 
-class CatalogView extends StatelessWidget {
+class CatalogView extends StatefulWidget {
+  @override
+  State<CatalogView> createState() => _CatalogViewState();
+}
+
+class _CatalogViewState extends State<CatalogView> {
+  bool _isLoading = true;
+  List<Beer> _beers = [];
+
+  final AmplifyDataStore _amplifyDataStore =
+      AmplifyDataStore(modelProvider: ModelProvider.instance);
+  final AmplifyAPI _amplifyAPI = AmplifyAPI();
+  final AmplifyAuthCognito _amplifyAuthCognito = AmplifyAuthCognito();
+
+  @override
+  void initState() {
+    _inicializeApp();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> _inicializeApp() async {
+    await _configureAmplify();
+    await _fetchBeers();
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _fetchBeers() async {
+    final beerRepository = BeerRepository(_amplifyDataStore);
+    try {
+      List<Beer> updatedBeers = await beerRepository.fetchBeers();
+
+      setState(() {
+        _beers = updatedBeers;
+      });
+
+      print('Query result $updatedBeers');
+    } on DataStoreException catch (e) {
+      print('Query failed: $e');
+    }
+  }
+
+  Future<void> _configureAmplify() async {
+    try {
+      await Amplify.addPlugins(
+          [_amplifyDataStore, _amplifyAPI, _amplifyAuthCognito]);
+      await Amplify.configure(amplifyconfig);
+    } catch (e) {
+      print(
+          "Tried to reconfigure Amplify; this can occur when your app restarts on Android. $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              child: Column(
-                children: [
-                  Beer(
-                    isFavorite: true,
-                    imageSrc:
-                        'https://emporiodacerveja.vtexassets.com/arquivos/ids/173479/ribeiraoLager1_1000x1000px.jpg',
-                    beerName: 'Ribeirão Lager',
-                    beerType: 'Lager',
-                    beerIBU: 20,
-                    beerRating: 5,
-                    beerABV: 4.5,
-                    obs:
-                        'Ótima lager de Ribeirão Preto, fácil de encontrar e combina com qualquer ocasião.',
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _isLoading
+              ? Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
-                  Beer(
-                    imageSrc:
-                        'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v8128878785442628016/products/204726_1_Cerveja-Baden-Baden-Golden-Garrafa-600ml.jpg',
-                    beerName: 'Baden Baden Golden',
-                    beerType: 'Weiss',
-                    beerIBU: 10,
-                    beerABV: 4.9,
-                    beerRating: 4,
-                    obs: 'Weiss com leve sabor de canela, muito boa!',
+                )
+              : Expanded(
+                  child: BeerList(
+                    beers: _beers,
                   ),
-                  Beer(
-                    imageSrc:
-                        'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v8128878785442628016/products/204726_1_Cerveja-Baden-Baden-Golden-Garrafa-600ml.jpg',
-                    beerName: 'Baden Baden Golden',
-                    beerType: 'Weiss',
-                    beerIBU: 10,
-                    beerABV: 5.5,
-                    beerRating: 4,
-                    obs: 'Weiss com leve sabor de canela, muito boa!',
-                  ),
-                  Beer(
-                    isFavorite: true,
-                    imageSrc:
-                        'https://emporiodacerveja.vtexassets.com/arquivos/ids/173479/ribeiraoLager1_1000x1000px.jpg',
-                    beerName: 'Ribeirão Lager',
-                    beerType: 'Lager',
-                    beerIBU: 20,
-                    beerRating: 5,
-                    beerABV: 4.5,
-                    obs:
-                        'Ótima lager de Ribeirão Preto, fácil de encontrar e combina com qualquer ocasião.',
-                  ),
-                ],
-              ),
-            );
-          }),
+                )
+        ],
+      ),
     );
   }
 }
 
-class Beer extends StatelessWidget {
+class BeerList extends StatelessWidget {
+  final List<Beer> beers;
+
+  BeerList({required this.beers});
+
+  @override
+  Widget build(BuildContext context) {
+    return beers.length > 1
+        ? ListView(
+            padding: EdgeInsets.all(8),
+            children: beers
+                .map((beer) => BeerItem(
+                    key: Key(beer.id),
+                    imageSrc:
+                        'https://emporiodacerveja.vtexassets.com/arquivos/ids/173479/ribeiraoLager1_1000x1000px.jpg',
+                    beerType: 'lager',
+                    beerIBU: beer.ibu ?? 10,
+                    beerABV: beer.abv ?? 4.5,
+                    beerRating: beer.score ?? 5,
+                    obs: 'description',
+                    beerName: beer.name ?? 'sem nome'))
+                .toList(),
+          )
+        : Center(
+            child: Text('Tá na hora de tomar uma pra adicionar aqui'),
+          );
+  }
+}
+
+class BeerItem extends StatelessWidget {
   final bool isFavorite;
   final String imageSrc;
   final String beerName;
@@ -73,16 +130,16 @@ class Beer extends StatelessWidget {
   final int beerRating;
   final String obs;
 
-  const Beer({
-    Key key,
-    this.imageSrc,
-    this.beerType,
-    this.beerIBU,
-    this.beerABV,
-    this.beerRating,
-    this.obs,
+  const BeerItem({
+    required Key key,
+    required this.imageSrc,
+    required this.beerType,
+    required this.beerIBU,
+    required this.beerABV,
+    required this.beerRating,
+    required this.obs,
     this.isFavorite = false,
-    this.beerName,
+    required this.beerName,
   }) : super(key: key);
 
   @override
@@ -113,6 +170,7 @@ class Beer extends StatelessWidget {
                 ),
               ),
               Infos(
+                  key: ValueKey(imageSrc),
                   beerName: beerName,
                   beerType: beerType,
                   beerIBU: beerIBU,
@@ -166,12 +224,12 @@ class Infos extends StatelessWidget {
   final int beerRating;
 
   const Infos(
-      {Key key,
-      this.beerType,
-      this.beerIBU,
-      this.beerABV,
-      this.beerRating,
-      this.beerName})
+      {required Key key,
+      required this.beerType,
+      required this.beerIBU,
+      required this.beerABV,
+      required this.beerRating,
+      required this.beerName})
       : super(key: key);
 
   @override
@@ -237,8 +295,8 @@ class Infos extends StatelessWidget {
 
 class TagBeerABV extends StatelessWidget {
   const TagBeerABV({
-    Key key,
-    @required this.beerABV,
+    Key? key,
+    required this.beerABV,
   }) : super(key: key);
 
   final double beerABV;
@@ -265,20 +323,18 @@ class TagBeerABV extends StatelessWidget {
 class TagBeerType extends StatelessWidget {
   final String beerType;
 
-  Color _getColorByBeerType(String beerType) {
+  Color? _getColorByBeerType(String beerType) {
     switch (beerType) {
       case 'Weiss':
         return Colors.amber[200];
-        break;
       case 'Lager':
         return Colors.amber[400];
-        break;
       default:
         return Colors.grey[400];
     }
   }
 
-  const TagBeerType({Key key, this.beerType}) : super(key: key);
+  const TagBeerType({Key? key, required this.beerType}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -303,20 +359,18 @@ class TagBeerType extends StatelessWidget {
 class TagBeerIBU extends StatelessWidget {
   final int beerIBU;
 
-  Color _getColorByBeerIBU(int beerIBU) {
+  Color? _getColorByBeerIBU(int beerIBU) {
     switch (beerIBU) {
       case 10:
         return Colors.teal[100];
-        break;
       case 20:
         return Colors.teal[300];
-        break;
       default:
         return Colors.grey[400];
     }
   }
 
-  const TagBeerIBU({Key key, this.beerIBU}) : super(key: key);
+  const TagBeerIBU({Key? key, required this.beerIBU}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -340,9 +394,7 @@ class TagBeerIBU extends StatelessWidget {
 
 class BeerRating extends StatelessWidget {
   final int value;
-  const BeerRating({Key key, this.value = 0})
-      : assert(value != null),
-        super(key: key);
+  const BeerRating({Key? key, this.value = 0}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(
