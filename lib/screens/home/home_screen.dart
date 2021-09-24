@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'add_beer_view.dart';
-import 'catalog_view.dart';
+import 'catalog/catalog_widget.dart';
+import 'add_beer/add_beer_widget.dart';
+import 'profile/profile_widget.dart';
 
-class HomePage extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  State<StatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -16,21 +17,21 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _selectView(int index) {
+  Widget _selectItem(int index) {
     switch (index) {
       case 0:
-        return CatalogView();
+        return Catalog();
       case 1:
-        return AddBeerView();
+        return AddBeer();
       case 2:
-        return LoversView();
+        return Lovers();
       case 3:
-        return ProfileView();
+        return Profile();
       default:
         setState(() {
           _selectedIndex = 0;
         });
-        return CatalogView();
+        return Catalog();
     }
   }
 
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               ]
             : [],
       ),
-      body: _selectView(_selectedIndex),
+      body: _selectItem(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class LoversView extends StatelessWidget {
+class Lovers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -91,24 +92,6 @@ class LoversView extends StatelessWidget {
           Text(
             'Buscar apreciadores',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class ProfileView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            'Perfil',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
           )
         ],
       ),

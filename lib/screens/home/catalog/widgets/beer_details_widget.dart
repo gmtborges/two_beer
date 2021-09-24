@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BeerDetailsView extends StatelessWidget {
+class BeerDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(context);

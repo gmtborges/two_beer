@@ -22,7 +22,7 @@ export 'Beer.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "f56a9b857416d67a34044a11bfa08c58";
+  String version = "d77a917cc6c72dd3a9c08c1f681d86b2";
   @override
   List<ModelSchema> modelSchemas = [Beer.schema];
   static final ModelProvider _instance = ModelProvider();

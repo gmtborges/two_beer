@@ -1,14 +1,13 @@
 import 'package:amplify_flutter/amplify.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:two_beer/models/Beer.dart';
 
-class AddBeerView extends StatefulWidget {
+class AddBeer extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _AddBeerViewState();
+  State<StatefulWidget> createState() => _AddBeerState();
 }
 
-class _AddBeerViewState extends State<AddBeerView> {
+class _AddBeerState extends State<AddBeer> {
   final _nameController = TextEditingController();
 
   Future<void> _saveBeer() async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:two_beer/pages/home/home_page.dart';
+import 'package:two_beer/screens/home/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'SourceSansPro',
         colorScheme:
-            ColorScheme.fromSwatch().copyWith(primary: Colors.amber[700]),
+            ColorScheme.fromSwatch().copyWith(primary: Colors.amber[800]),
       ),
       title: '2Beer',
-      home: HomePage(),
+      home: HomeScreen(),
     );
   }
 }
