@@ -2,12 +2,12 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:two_beer/models/Beer.dart';
 
-class AddBeer extends StatefulWidget {
+class AddBeerScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _AddBeerState();
+  State<StatefulWidget> createState() => _AddBeerScreenState();
 }
 
-class _AddBeerState extends State<AddBeer> {
+class _AddBeerScreenState extends State<AddBeerScreen> {
   final _nameController = TextEditingController();
 
   Future<void> _saveBeer() async {

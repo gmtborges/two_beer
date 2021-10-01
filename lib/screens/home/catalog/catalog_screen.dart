@@ -10,12 +10,12 @@ import 'package:two_beer/repository/beer_repository.dart';
 
 import 'widgets/beer_list_widget.dart';
 
-class Catalog extends StatefulWidget {
+class CatalogScreen extends StatefulWidget {
   @override
-  State<Catalog> createState() => _CatalogState();
+  State<CatalogScreen> createState() => _CatalogScreenState();
 }
 
-class _CatalogState extends State<Catalog> {
+class _CatalogScreenState extends State<CatalogScreen> {
   bool _isLoading = true;
   List<Beer> _beers = [];
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'catalog/catalog_widget.dart';
-import 'add_beer/add_beer_widget.dart';
-import 'profile/profile_widget.dart';
+import 'catalog/catalog_screen.dart';
+import 'add_beer/add_beer_screen.dart';
+import 'profile/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,21 +17,21 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget _selectItem(int index) {
+  Widget _selectScreen(int index) {
     switch (index) {
       case 0:
-        return Catalog();
+        return CatalogScreen();
       case 1:
-        return AddBeer();
+        return AddBeerScreen();
       case 2:
-        return Lovers();
+        return LoversScreen();
       case 3:
-        return Profile();
+        return ProfileScreen();
       default:
         setState(() {
           _selectedIndex = 0;
         });
-        return Catalog();
+        return CatalogScreen();
     }
   }
 
@@ -53,7 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ]
             : [],
       ),
-      body: _selectItem(_selectedIndex),
+      backgroundColor: Colors.grey[100],
+      body: _selectScreen(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class Lovers extends StatelessWidget {
+class LoversScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
