@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'catalog/catalog_screen.dart';
 import 'add_beer/add_beer_screen.dart';
+import 'lovers/lovers_screen.dart';
 import 'profile/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,6 +10,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final screens = [
+    CatalogScreen(),
+    AddBeerScreen(),
+    LoversScreen(),
+    ProfileScreen(),
+  ];
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -17,84 +24,38 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget _selectScreen(int index) {
-    switch (index) {
-      case 0:
-        return CatalogScreen();
-      case 1:
-        return AddBeerScreen();
-      case 2:
-        return LoversScreen();
-      case 3:
-        return ProfileScreen();
-      default:
-        setState(() {
-          _selectedIndex = 0;
-        });
-        return CatalogScreen();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '2Beer',
-          style: TextStyle(
-            color: Colors.grey[800],
-            fontWeight: FontWeight.bold,
-          ),
+      body: screens[_selectedIndex],
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+            indicatorColor: Colors.blueGrey.shade200,
+            labelTextStyle: MaterialStateProperty.all(TextStyle(fontSize: 14))),
+        child: NavigationBar(
+          height: 56,
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: _onItemTapped,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          destinations: [
+            NavigationDestination(
+              icon: Icon(Icons.list_alt),
+              label: 'Catálogo',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.add),
+              label: 'Adicionar',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.search),
+              label: 'Apreciadores',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.account_circle_outlined),
+              label: 'Perfil',
+            )
+          ],
         ),
-        actions: _selectedIndex == 0
-            ? <Widget>[
-                IconButton(icon: Icon(Icons.search), onPressed: null),
-                IconButton(icon: Icon(Icons.sort), onPressed: null),
-              ]
-            : [],
-      ),
-      backgroundColor: Colors.grey[100],
-      body: _selectScreen(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: 'Catálogo',
-            icon: Icon(Icons.list_alt),
-          ),
-          BottomNavigationBarItem(
-            label: 'Adicionar',
-            icon: Icon(Icons.add),
-          ),
-          BottomNavigationBarItem(
-            label: 'Apreciadores',
-            icon: Icon(Icons.search),
-          ),
-          BottomNavigationBarItem(
-            label: 'Perfil',
-            icon: Icon(Icons.account_box_outlined),
-          )
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-      ),
-    );
-  }
-}
-
-class LoversScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            'Buscar apreciadores',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-          )
-        ],
       ),
     );
   }

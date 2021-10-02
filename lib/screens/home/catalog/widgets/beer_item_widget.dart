@@ -27,12 +27,16 @@ class BeerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: Colors.grey.shade300, width: 1),
+      ),
       child: Row(
         children: [
-          Container(
+          Flexible(
+            flex: 1,
             child: imageSrc != ''
                 ? FadeInImage.assetNetwork(
-                    width: 180,
                     image: imageSrc,
                     placeholder: 'img/img-placeholder.png',
                   )
@@ -58,38 +62,6 @@ class BeerItem extends StatelessWidget {
               beerIBU: beerIBU,
               beerABV: beerABV,
               beerRating: beerScore),
-          Container(
-            child: Container(
-              height: 180,
-              padding: EdgeInsets.only(top: 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  this.isFavorite
-                      ? Container(
-                          child: Icon(
-                            Icons.favorite,
-                            color: Colors.red[700],
-                            size: 20,
-                          ),
-                        )
-                      : Container(
-                          height: 20,
-                          width: 20,
-                        ),
-                  Container(
-                    child: IconButton(
-                      onPressed: () => {},
-                      icon: Icon(
-                        Icons.chevron_right,
-                        color: Colors.grey[500],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
         ],
       ),
     );

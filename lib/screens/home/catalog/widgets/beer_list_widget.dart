@@ -10,23 +10,22 @@ class BeerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return beers.length > 1
+    return beers.length > 0
         ? ListView(
             padding: EdgeInsets.all(4),
-            children: beers.length > 1
-                ? beers
-                    .map((beer) => BeerItem(
-                        key: Key(beer.id),
-                        imageSrc: beer.imgSrc,
-                        beerType: beer.type,
-                        beerIBU: beer.ibu,
-                        beerABV: beer.abv,
-                        beerScore: beer.score,
-                        description: 'desc',
-                        isFavorite: beer.isFavorite,
-                        beerName: beer.name))
-                    .toList()
-                : [],
+            children: beers
+                .map((beer) => BeerItem(
+                      key: Key(beer.name),
+                      beerName: beer.name,
+                      beerType: beer.type,
+                      beerIBU: beer.ibu,
+                      beerABV: beer.abv,
+                      beerScore: beer.score,
+                      isFavorite: beer.isFavorite,
+                      imageSrc: beer.imgSrc,
+                      description: 'desc',
+                    ))
+                .toList(),
           )
         : Center(
             child: Column(

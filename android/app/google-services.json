@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "263339473458",
+    "project_id": "two-beer-313814",
+    "storage_bucket": "two-beer-313814.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263339473458:android:dddea63d068b978439da2b",
+        "android_client_info": {
+          "package_name": "net.gustavoborges.two_beer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263339473458-1asduq8dvbeq5lhsc8m7lmuk7a4kfuio.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsskwaQhfV9DTZw23fIK4QH8_iOjVvXBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263339473458-1asduq8dvbeq5lhsc8m7lmuk7a4kfuio.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,8 @@ class BeerRepository {
 
   Future<List<Beer>> fetchBeers() {
     // return this._dataStore.query(Beer.classType);
-    return Future.delayed(const Duration(seconds: 1));
+    return Future.delayed(const Duration(seconds: 1), () {
+      return [];
+    });
   }
 }

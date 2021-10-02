@@ -1,7 +1,6 @@
-import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/material.dart';
 import 'package:two_beer/models/Beer.dart';
-import 'package:two_beer/repository/beer_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'widgets/beer_list_widget.dart';
 
@@ -14,9 +13,11 @@ class _CatalogScreenState extends State<CatalogScreen> {
   bool _isLoading = true;
   List<Beer> _beers = [];
 
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   @override
   void initState() {
-    _inicializeApp();
+    _fetchBeers();
     super.initState();
   }
 
@@ -25,45 +26,77 @@ class _CatalogScreenState extends State<CatalogScreen> {
     super.dispose();
   }
 
-  Future<void> _inicializeApp() async {
-    await _fetchBeers();
-  }
-
   Future<void> _fetchBeers() async {
-    final beerRepository = BeerRepository();
+    List<Beer> _updatedBeers = [];
     try {
-      List<Beer> updatedBeers = await beerRepository.fetchBeers();
-
-      new Future.delayed(const Duration(seconds: 3), () {
+      firestore.collection('beers').get().then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((element) {
+          var beer = Beer(
+            name: element['name'],
+            createdAt: element['createdAt'],
+            type: element['type'],
+            ibu: element['ibu'],
+            abv: double.parse(element['abv'].toString()),
+            score: element['score'],
+            isFavorite: element['isFavorite'],
+            imgSrc: element['imgSrc'],
+          );
+          _updatedBeers.add(beer);
+        });
         setState(() {
-          _beers = updatedBeers;
+          _beers = _updatedBeers;
           _isLoading = false;
         });
       });
-
-      print('Query result $updatedBeers');
-    } on DataStoreException catch (e) {
+    } catch (e) {
       print('Query failed: $e');
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _isLoading
-            ? Expanded(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              )
-            : Expanded(
-                child: BeerList(
-                  beers: _beers,
-                ),
-              )
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '2Beer',
+          style: TextStyle(
+              color: Colors.grey.shade800, fontWeight: FontWeight.w600),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.amber.shade700,
+              ),
+              onPressed: null),
+          IconButton(
+              icon: Icon(
+                Icons.sort,
+                color: Colors.amber.shade700,
+              ),
+              onPressed: null),
+        ],
+      ),
+      body: Column(
+        children: [
+          _isLoading
+              ? Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : Expanded(
+                  child: BeerList(
+                    beers: _beers,
+                  ),
+                )
+        ],
+      ),
     );
   }
 }

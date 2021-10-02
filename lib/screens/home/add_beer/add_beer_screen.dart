@@ -1,6 +1,4 @@
-import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
-import 'package:two_beer/models/Beer.dart';
 
 class AddBeerScreen extends StatefulWidget {
   @override
@@ -13,17 +11,12 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
   Future<void> _saveBeer() async {
     String name = _nameController.text;
 
-    Beer newBeer = Beer(name: name, ibu: 10, isFavorite: false);
-
-    try {
-      await Amplify.DataStore.save(newBeer);
-    } catch (e) {}
+    try {} catch (e) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
+    return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

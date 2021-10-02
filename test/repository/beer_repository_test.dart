@@ -5,15 +5,7 @@ import 'package:two_beer/repository/beer_repository.dart';
 
 void main() {
   BeerRepository beerRepository = BeerRepository();
-  List<Beer> listBeersMock = [
-    Beer(
-        id: '1',
-        name: 'Colorado Lager',
-        abv: 5,
-        ibu: 12,
-        isFavorite: false,
-        score: 4),
-  ];
+  List<Beer> listBeersMock = [];
 
   setUp(() {});
 

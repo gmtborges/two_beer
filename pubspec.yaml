@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
 
   flutter_signin_button: ^2.0.0
+  firebase_core: "^1.7.0"
+  cloud_firestore: "^2.5.3"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -80,5 +82,7 @@ flutter:
     - family: SourceSansPro
       fonts:
         - asset: fonts/SourceSansPro-Regular.ttf
+        - asset: fonts/SourceSansPro-SemiBold.ttf
+          weight: 600
         - asset: fonts/SourceSansPro-Bold.ttf
           weight: 700

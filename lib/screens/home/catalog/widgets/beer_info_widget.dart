@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class BeerInfo extends StatelessWidget {
-  final String? beerName;
-  final String? beerType;
+  final String beerName;
+  final String beerType;
   final int beerIBU;
-  final double? beerABV;
-  final int? beerRating;
+  final double beerABV;
+  final int beerRating;
 
   const BeerInfo(
       {required Key key,
-      this.beerType,
+      required this.beerType,
       required this.beerIBU,
-      this.beerABV,
-      this.beerRating,
-      this.beerName})
+      required this.beerABV,
+      required this.beerRating,
+      required this.beerName})
       : super(key: key);
 
   @override
@@ -22,14 +22,14 @@ class BeerInfo extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            Text(beerName ?? 'uma cerveja com nome grande',
+            Text(beerName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontWeight: FontWeight.bold)),
             Container(
                 margin: EdgeInsets.symmetric(vertical: 8),
                 child: BeerRating(
-                  value: beerRating ?? 0,
+                  value: beerRating,
                 )),
             Container(
               // constraints: BoxConstraints(maxWidth: 60),
@@ -37,7 +37,7 @@ class BeerInfo extends StatelessWidget {
               child: Column(
                 children: [
                   TagBeerType(
-                    beerType: beerType ?? 'uma cerveja com tipão',
+                    beerType: beerType,
                   )
                 ],
               ),
