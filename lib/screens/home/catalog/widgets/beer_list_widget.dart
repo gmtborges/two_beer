@@ -12,22 +12,37 @@ class BeerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return beers.length > 1
         ? ListView(
-            padding: EdgeInsets.all(8),
-            children: beers
-                .map((beer) => BeerItem(
-                    key: Key(beer.id),
-                    imageSrc: beer.imgSrc,
-                    beerType: beer.type,
-                    beerIBU: beer.ibu ?? 0,
-                    beerABV: beer.abv ?? 0,
-                    beerRating: beer.score,
-                    obs: 'description',
-                    isFavorite: beer.isFavorite ?? false,
-                    beerName: beer.name))
-                .toList(),
+            padding: EdgeInsets.all(4),
+            children: beers.length > 1
+                ? beers
+                    .map((beer) => BeerItem(
+                        key: Key(beer.id),
+                        imageSrc: beer.imgSrc,
+                        beerType: beer.type,
+                        beerIBU: beer.ibu,
+                        beerABV: beer.abv,
+                        beerScore: beer.score,
+                        description: 'desc',
+                        isFavorite: beer.isFavorite,
+                        beerName: beer.name))
+                    .toList()
+                : [],
           )
         : Center(
-            child: Text('Tá na hora de tomar uma pra adicionar aqui'),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Tá na hora de tomar uma pra adicionar aqui!',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Icon(
+                  Icons.sports_bar,
+                  color: Colors.amber[700],
+                  size: 24,
+                )
+              ],
+            ),
           );
   }
 }

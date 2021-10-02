@@ -1,12 +1,10 @@
-import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:two_beer/models/Beer.dart';
 
 class BeerRepository {
-  final AmplifyDataStore _dataStore;
-
-  BeerRepository(this._dataStore);
+  BeerRepository();
 
   Future<List<Beer>> fetchBeers() {
-    return this._dataStore.query(Beer.classType);
+    // return this._dataStore.query(Beer.classType);
+    return Future.delayed(const Duration(seconds: 1));
   }
 }

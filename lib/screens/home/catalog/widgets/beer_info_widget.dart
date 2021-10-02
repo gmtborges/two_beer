@@ -20,60 +20,53 @@ class BeerInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.fromLTRB(16, 16, 0, 0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: double.maxFinite,
-              child: Center(
-                child: Text(
-                  beerName ?? 'uma cerveja com nome grande',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+            Text(beerName ?? 'uma cerveja com nome grande',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.bold)),
             Container(
                 margin: EdgeInsets.symmetric(vertical: 8),
                 child: BeerRating(
                   value: beerRating ?? 0,
                 )),
             Container(
-              constraints: BoxConstraints(maxWidth: 60),
+              // constraints: BoxConstraints(maxWidth: 60),
               margin: EdgeInsets.symmetric(vertical: 4),
               child: Column(
                 children: [
                   TagBeerType(
-                    beerType: beerType ?? 'tipo',
+                    beerType: beerType ?? 'uma cerveja com tipão',
                   )
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  child: Column(
-                    children: [
-                      Text('IBU'),
-                      TagBeerIBU(
-                        beerIBU: beerIBU,
-                      )
-                    ],
+            Container(
+              margin: EdgeInsets.only(top: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        Text('IBU'),
+                        Text(beerIBU.toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  child: Column(
-                    children: [
-                      Text('ABV'),
-                      TagBeerABV(beerABV: beerABV != null ? beerABV : 0),
-                    ],
+                  Container(
+                    child: Column(
+                      children: [
+                        Text('ABV'),
+                        Text(beerABV.toString() + '%',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -126,82 +119,9 @@ class TagBeerType extends StatelessWidget {
           right: Radius.circular(8),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: Center(
-            child: Text(
-              beerType,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TagBeerIBU extends StatelessWidget {
-  final int beerIBU;
-
-  Color? _getColorByBeerIBU(int beerIBU) {
-    switch (beerIBU) {
-      case 10:
-        return Colors.teal[100];
-      case 20:
-        return Colors.teal[300];
-      default:
-        return Colors.grey[400];
-    }
-  }
-
-  const TagBeerIBU({Key? key, required this.beerIBU}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(minWidth: 25),
-      child: Material(
-        color: _getColorByBeerIBU(beerIBU),
-        borderRadius: BorderRadius.horizontal(
-          left: Radius.circular(8),
-          right: Radius.circular(8),
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(4.0),
-          child: Center(
-            child: Text(
-              beerIBU.toString(),
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TagBeerABV extends StatelessWidget {
-  const TagBeerABV({
-    Key? key,
-    required this.beerABV,
-  }) : super(key: key);
-
-  final double? beerABV;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.horizontal(
-          left: Radius.circular(8),
-          right: Radius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Center(
-            child: Text(
-              beerABV.toString() + '%',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+          padding: const EdgeInsets.fromLTRB(6, 1, 6, 1),
+          child: Text(
+            beerType,
           ),
         ),
       ),
