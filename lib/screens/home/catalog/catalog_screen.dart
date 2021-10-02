@@ -38,7 +38,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
             ibu: element['ibu'],
             abv: double.parse(element['abv'].toString()),
             score: element['score'],
-            isFavorite: element['isFavorite'],
             imgSrc: element['imgSrc'],
           );
           _updatedBeers.add(beer);

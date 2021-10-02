@@ -21,7 +21,6 @@ class BeerList extends StatelessWidget {
                       beerIBU: beer.ibu,
                       beerABV: beer.abv,
                       beerScore: beer.score,
-                      isFavorite: beer.isFavorite,
                       imageSrc: beer.imgSrc,
                       description: 'desc',
                     ))

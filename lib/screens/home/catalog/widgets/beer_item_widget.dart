@@ -8,7 +8,6 @@ class BeerItem extends StatelessWidget {
   final int beerIBU;
   final double beerABV;
   final int beerScore;
-  final bool isFavorite;
   final String imageSrc;
   final String description;
 
@@ -21,7 +20,6 @@ class BeerItem extends StatelessWidget {
     required this.beerABV,
     required this.beerScore,
     required this.description,
-    required this.isFavorite,
   }) : super(key: key);
 
   @override
@@ -33,35 +31,29 @@ class BeerItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Flexible(
-            flex: 1,
-            child: imageSrc != ''
-                ? FadeInImage.assetNetwork(
-                    image: imageSrc,
-                    placeholder: 'img/img-placeholder.png',
-                  )
-                : Image.asset(
-                    'img/img-placeholder.png',
-                    width: 180,
-                  ),
-          ),
-          Container(
-            height: 180,
-            child: VerticalDivider(
-              color: Colors.grey[300],
-              thickness: 1,
-              width: 1,
-              indent: 10,
-              endIndent: 10,
+          Expanded(
+            child: Container(
+              height: 160,
+              child: imageSrc != ''
+                  ? FadeInImage.assetNetwork(
+                      image: imageSrc,
+                      placeholder: 'img/img-placeholder.png',
+                    )
+                  : Image.asset(
+                      'img/img-placeholder.png',
+                    ),
             ),
           ),
-          BeerInfo(
+          Expanded(
+            child: BeerInfo(
               key: ValueKey(imageSrc),
               beerName: beerName,
               beerType: beerType,
               beerIBU: beerIBU,
               beerABV: beerABV,
-              beerRating: beerScore),
+              beerRating: beerScore,
+            ),
+          ),
         ],
       ),
     );
