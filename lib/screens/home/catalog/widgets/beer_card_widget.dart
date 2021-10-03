@@ -3,10 +3,10 @@ import 'package:two_beer/models/Beer.dart';
 
 import 'beer_info_widget.dart';
 
-class BeerItem extends StatelessWidget {
+class BeerCard extends StatelessWidget {
   final Beer beer;
 
-  const BeerItem({
+  const BeerCard({
     required Key key,
     required this.beer,
   }) : super(key: key);

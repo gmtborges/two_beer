@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:two_beer/models/Beer.dart';
 
-import 'beer_item_widget.dart';
+import 'beer_card_widget.dart';
 
 class BeerList extends StatelessWidget {
   final List<Beer> beers;
@@ -14,7 +14,7 @@ class BeerList extends StatelessWidget {
         ? ListView.builder(
             itemCount: beers.length,
             itemBuilder: (context, index) {
-              return BeerItem(
+              return BeerCard(
                 beer: beers[index],
                 key: Key(beers[index].name),
               );
