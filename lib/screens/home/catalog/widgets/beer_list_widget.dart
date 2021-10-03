@@ -11,21 +11,14 @@ class BeerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return beers.length > 0
-        ? ListView(
-            padding: EdgeInsets.all(4),
-            children: beers
-                .map((beer) => BeerItem(
-                      key: Key(beer.name),
-                      beerName: beer.name,
-                      beerType: beer.type,
-                      beerIBU: beer.ibu,
-                      beerABV: beer.abv,
-                      beerScore: beer.score,
-                      imageSrc: beer.imgSrc,
-                      description: 'desc',
-                    ))
-                .toList(),
-          )
+        ? ListView.builder(
+            itemCount: beers.length,
+            itemBuilder: (context, index) {
+              return BeerItem(
+                beer: beers[index],
+                key: Key(beers[index].name),
+              );
+            })
         : Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

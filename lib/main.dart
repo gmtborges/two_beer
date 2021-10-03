@@ -59,14 +59,50 @@ class _InicializeFirebaseState extends State<InicializeFirebase> {
   Widget build(BuildContext context) {
     // Show error message if initialization failed
     if (_error) {
-      return Center(
-        child: Text('Erro ao carregar os dados. =('),
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '2Beer',
+            style: TextStyle(
+                color: Colors.grey.shade800, fontWeight: FontWeight.w600),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Houve um erro ao iniciar o aplicativo',
+                style: TextStyle(fontSize: 18),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 8),
+                child: Icon(
+                  Icons.error,
+                  color: Colors.red.shade700,
+                  size: 24,
+                ),
+              )
+            ],
+          ),
+        ),
       );
     }
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
       return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '2Beer',
+            style: TextStyle(
+                color: Colors.grey.shade800, fontWeight: FontWeight.w600),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
         body: Center(child: CircularProgressIndicator()),
       );
     }

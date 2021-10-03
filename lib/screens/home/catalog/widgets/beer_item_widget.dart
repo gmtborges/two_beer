@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:two_beer/models/Beer.dart';
 
 import 'beer_info_widget.dart';
 
 class BeerItem extends StatelessWidget {
-  final String beerName;
-  final String beerType;
-  final int beerIBU;
-  final double beerABV;
-  final int beerScore;
-  final String imageSrc;
-  final String description;
+  final Beer beer;
 
   const BeerItem({
     required Key key,
-    required this.beerName,
-    required this.beerType,
-    required this.beerIBU,
-    required this.imageSrc,
-    required this.beerABV,
-    required this.beerScore,
-    required this.description,
+    required this.beer,
   }) : super(key: key);
 
   @override
@@ -35,11 +24,11 @@ class BeerItem extends StatelessWidget {
           Expanded(
             child: Container(
               height: 160,
-              child: imageSrc != ''
+              child: beer.imgSrc != ''
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: FadeInImage.assetNetwork(
-                        image: imageSrc,
+                        image: beer.imgSrc,
                         placeholder: 'img/img-placeholder.png',
                       ),
                     )
@@ -50,12 +39,12 @@ class BeerItem extends StatelessWidget {
           ),
           Expanded(
             child: BeerInfo(
-              key: ValueKey(imageSrc),
-              beerName: beerName,
-              beerType: beerType,
-              beerIBU: beerIBU,
-              beerABV: beerABV,
-              beerRating: beerScore,
+              key: ValueKey(beer.imgSrc),
+              beerName: beer.name,
+              beerType: beer.type,
+              beerIBU: beer.ibu,
+              beerABV: beer.abv,
+              beerRating: beer.score,
             ),
           ),
         ],
