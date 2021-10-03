@@ -29,15 +29,19 @@ class BeerItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         side: BorderSide(color: Colors.grey.shade300, width: 1),
       ),
+      elevation: 2,
       child: Row(
         children: [
           Expanded(
             child: Container(
               height: 160,
               child: imageSrc != ''
-                  ? FadeInImage.assetNetwork(
-                      image: imageSrc,
-                      placeholder: 'img/img-placeholder.png',
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FadeInImage.assetNetwork(
+                        image: imageSrc,
+                        placeholder: 'img/img-placeholder.png',
+                      ),
                     )
                   : Image.asset(
                       'img/img-placeholder.png',
