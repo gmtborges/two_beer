@@ -32,14 +32,14 @@ class _CatalogScreenState extends State<CatalogScreen> {
       firestore.collection('beers').get().then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((element) {
           var beer = Beer(
-            name: element['name'],
-            createdAt: element['createdAt'],
-            type: element['type'],
-            ibu: element['ibu'],
-            abv: double.parse(element['abv'].toString()),
-            score: element['score'],
-            imgSrc: element['imgSrc'],
-          );
+              name: element['name'],
+              createdAt: element['createdAt'],
+              type: element['type'],
+              ibu: element['ibu'],
+              abv: double.parse(element['abv'].toString()),
+              score: element['score'],
+              imgSrc: element['imgSrc'],
+              isFavorite: element['isFavorite']);
           _updatedBeers.add(beer);
         });
         setState(() {

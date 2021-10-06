@@ -20,10 +20,10 @@ class BeerCard extends StatelessWidget {
       ),
       elevation: 2,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Container(
-              height: 160,
               child: beer.imgSrc != ''
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -45,6 +45,7 @@ class BeerCard extends StatelessWidget {
               beerIBU: beer.ibu,
               beerABV: beer.abv,
               beerRating: beer.score,
+              isFavorite: beer.isFavorite,
             ),
           ),
         ],

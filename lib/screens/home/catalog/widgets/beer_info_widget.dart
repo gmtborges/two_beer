@@ -6,10 +6,12 @@ class BeerInfo extends StatelessWidget {
   final int beerIBU;
   final double beerABV;
   final int beerRating;
+  final bool isFavorite;
 
   const BeerInfo(
       {required Key key,
       required this.beerType,
+      required this.isFavorite,
       required this.beerIBU,
       required this.beerABV,
       required this.beerRating,
@@ -18,58 +20,67 @@ class BeerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(0, 4, 2, 0),
-      child: Column(
-        children: [
-          Text(beerName,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
-              child: BeerRating(
-                value: beerRating,
-              )),
-          Container(
-            // constraints: BoxConstraints(maxWidth: 60),
-            margin: EdgeInsets.symmetric(vertical: 4),
-            child: Column(
-              children: [
-                TagBeerType(
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 8, 8, 0),
+          alignment: Alignment.centerRight,
+          child: isFavorite
+              ? Icon(Icons.star, color: Colors.amber, size: 20)
+              : SizedBox(
+                  height: 20,
+                ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 8),
+          child: Column(
+            children: [
+              Text(beerName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              Container(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: BeerRating(
+                    value: beerRating,
+                  )),
+              Container(
+                // constraints: BoxConstraints(maxWidth: 60),
+                margin: EdgeInsets.symmetric(vertical: 4),
+                child: TagBeerType(
                   beerType: beerType,
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Text('IBU'),
-                      Text(beerIBU.toString(),
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ],
-                  ),
                 ),
-                Container(
-                  child: Column(
-                    children: [
-                      Text('ABV'),
-                      Text(beerABV.toString() + '%',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ],
-                  ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      child: Column(
+                        children: [
+                          Text('IBU'),
+                          Text(beerIBU.toString(),
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        children: [
+                          Text('ABV'),
+                          Text(beerABV.toString() + '%',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

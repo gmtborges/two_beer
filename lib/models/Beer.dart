@@ -8,6 +8,7 @@ class Beer {
   double abv;
   int score;
   String imgSrc;
+  bool isFavorite;
 
   Beer(
       {required this.name,
@@ -16,5 +17,6 @@ class Beer {
       required this.ibu,
       required this.abv,
       required this.score,
-      required this.imgSrc});
+      required this.imgSrc,
+      required this.isFavorite});
 }
