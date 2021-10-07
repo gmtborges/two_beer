@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:two_beer/models/Beer.dart';
+import 'package:two_beer/screens/home/catalog/widgets/beer_details_widget.dart';
 
 import 'beer_card_widget.dart';
 
 class BeerList extends StatelessWidget {
   final List<Beer> beers;
 
-  BeerList({required this.beers});
+  BeerList(this.beers);
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +15,19 @@ class BeerList extends StatelessWidget {
         ? ListView.builder(
             itemCount: beers.length,
             itemBuilder: (context, index) {
-              return BeerCard(
-                beer: beers[index],
-                key: Key(beers[index].name),
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BeerDetails(beers[index]),
+                    ),
+                  );
+                },
+                child: BeerCard(
+                  beer: beers[index],
+                  key: Key(beers[index].name),
+                ),
               );
             })
         : Center(

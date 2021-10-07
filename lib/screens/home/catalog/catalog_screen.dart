@@ -90,9 +90,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                   ),
                 )
               : Expanded(
-                  child: BeerList(
-                    beers: _beers,
-                  ),
+                  child: BeerList(_beers),
                 )
         ],
       ),

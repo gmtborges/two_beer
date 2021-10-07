@@ -80,6 +80,14 @@ class BeerInfo extends StatelessWidget {
             ],
           ),
         ),
+        Container(
+          margin: EdgeInsets.only(top: 12, right: 8),
+          alignment: Alignment.centerRight,
+          child: Icon(
+            Icons.chevron_right,
+            color: Colors.grey.shade500,
+          ),
+        ),
       ],
     );
   }
