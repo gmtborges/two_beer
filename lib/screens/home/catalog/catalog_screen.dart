@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:two_beer/models/Beer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'widgets/beer_list_widget.dart';
 

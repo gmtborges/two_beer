@@ -16,13 +16,13 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSwatch().copyWith(primary: Colors.amber[800]),
       ),
       title: '2Beer',
-      home: InicializeFirebase(),
+      home: const InicializeFirebase(),
     );
   }
 }
 
 class InicializeFirebase extends StatefulWidget {
-  InicializeFirebase({Key? key}) : super(key: key);
+  const InicializeFirebase({Key? key}) : super(key: key);
 
   @override
   _InicializeFirebaseState createState() => _InicializeFirebaseState();
@@ -73,12 +73,12 @@ class _InicializeFirebaseState extends State<InicializeFirebase> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Houve um erro ao iniciar o aplicativo',
                 style: TextStyle(fontSize: 18),
               ),
               Container(
-                margin: EdgeInsets.only(left: 8),
+                margin: const EdgeInsets.only(left: 8),
                 child: Icon(
                   Icons.error,
                   color: Colors.red.shade700,
@@ -103,7 +103,7 @@ class _InicializeFirebaseState extends State<InicializeFirebase> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Center(child: CircularProgressIndicator()),
+        body: const Center(child: CircularProgressIndicator()),
       );
     }
 

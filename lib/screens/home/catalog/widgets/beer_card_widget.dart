@@ -23,19 +23,17 @@ class BeerCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Container(
-              child: beer.imgSrc != ''
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: FadeInImage.assetNetwork(
-                        image: beer.imgSrc,
-                        placeholder: 'img/img-placeholder.png',
-                      ),
-                    )
-                  : Image.asset(
-                      'img/img-placeholder.png',
+            child: beer.imgSrc != ''
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: FadeInImage.assetNetwork(
+                      image: beer.imgSrc,
+                      placeholder: 'img/img-placeholder.png',
                     ),
-            ),
+                  )
+                : Image.asset(
+                    'img/img-placeholder.png',
+                  ),
           ),
           Expanded(
             child: BeerInfo(

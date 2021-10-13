@@ -15,7 +15,7 @@ class BeerList extends StatelessWidget {
         ? ListView.builder(
             itemCount: beers.length,
             itemBuilder: (context, index) {
-              return InkWell(
+              return GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
