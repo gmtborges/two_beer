@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:two_beer/models/Beer.dart';
+import 'package:two_beer/models/beer.dart';
 
 import 'beer_info_widget.dart';
 

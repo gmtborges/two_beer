@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:two_beer/models/Beer.dart';
+import 'package:two_beer/models/beer.dart';
 
 import 'widgets/beer_list_widget.dart';
 
@@ -31,15 +31,18 @@ class _CatalogScreenState extends State<CatalogScreen> {
     try {
       firestore.collection('beers').get().then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((element) {
-          var beer = Beer(
-              name: element['name'],
-              createdAt: element['createdAt'],
-              type: element['type'],
-              ibu: element['ibu'],
-              abv: double.parse(element['abv'].toString()),
-              score: element['score'],
-              imgSrc: element['imgSrc'],
-              isFavorite: element['isFavorite']);
+          final beer = Beer(
+            name: element['name'] as String,
+            brand: element['brand'] as String,
+            createdAt: element['createdAt'] as Timestamp,
+            type: element['type'] as String,
+            ibu: element['ibu'] as int,
+            abv: double.parse(element['abv'].toString()),
+            score: element['score'] as int,
+            imgSrc: element['imgSrc'] as String,
+            isFavorite: element['isFavorite'] as bool,
+            obs: element['obs'] as String,
+          );
           _updatedBeers.add(beer);
         });
         setState(() {
@@ -48,7 +51,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
         });
       });
     } catch (e) {
-      print('Query failed: $e');
       setState(() {
         _isLoading = false;
       });
@@ -62,36 +64,41 @@ class _CatalogScreenState extends State<CatalogScreen> {
         title: Text(
           '2Beer',
           style: TextStyle(
-              color: Colors.grey.shade800, fontWeight: FontWeight.w600),
+            color: Colors.grey.shade800,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: <Widget>[
           IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.amber.shade700,
-              ),
-              onPressed: null),
+            icon: Icon(
+              Icons.search,
+              color: Colors.amber.shade700,
+            ),
+            onPressed: null,
+          ),
           IconButton(
-              icon: Icon(
-                Icons.sort,
-                color: Colors.amber.shade700,
-              ),
-              onPressed: null),
+            icon: Icon(
+              Icons.sort,
+              color: Colors.amber.shade700,
+            ),
+            onPressed: null,
+          ),
         ],
       ),
       body: Column(
         children: [
-          _isLoading
-              ? Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : Expanded(
-                  child: BeerList(_beers),
-                )
+          if (_isLoading)
+            const Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          else
+            Expanded(
+              child: BeerList(_beers),
+            )
         ],
       ),
     );

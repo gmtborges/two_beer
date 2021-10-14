@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'catalog/catalog_screen.dart';
+
 import 'add_beer/add_beer_screen.dart';
+import 'catalog/catalog_screen.dart';
 import 'lovers/lovers_screen.dart';
 import 'profile/profile_screen.dart';
 
@@ -25,19 +26,26 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[_selectedIndex],
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-            indicatorColor: Colors.blueGrey.shade200,
-            labelTextStyle: MaterialStateProperty.all(TextStyle(fontSize: 14))),
+          indicatorColor: Colors.blueGrey.shade200,
+          labelTextStyle:
+              MaterialStateProperty.all(const TextStyle(fontSize: 14)),
+        ),
         child: NavigationBar(
           height: 56,
           selectedIndex: _selectedIndex,
           onDestinationSelected: _onItemTapped,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          destinations: [
+          destinations: const [
             NavigationDestination(
               icon: Icon(Icons.list_alt),
               label: 'Catálogo',

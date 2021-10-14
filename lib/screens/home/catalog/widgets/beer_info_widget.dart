@@ -23,56 +23,53 @@ class BeerInfo extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.fromLTRB(0, 8, 8, 0),
+          margin: const EdgeInsets.fromLTRB(0, 8, 8, 0),
           alignment: Alignment.centerRight,
           child: isFavorite
-              ? Icon(Icons.star, color: Colors.amber, size: 20)
-              : SizedBox(
+              ? const Icon(Icons.star, color: Colors.amber, size: 20)
+              : const SizedBox(
                   height: 20,
                 ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 8),
+          margin: const EdgeInsets.only(top: 8),
           child: Column(
             children: [
               Text(beerName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
               Container(
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  child: BeerRating(
-                    value: beerRating,
-                  )),
-              Container(
-                // constraints: BoxConstraints(maxWidth: 60),
-                margin: EdgeInsets.symmetric(vertical: 4),
-                child: TagBeerType(
-                  beerType: beerType,
-                ),
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: BeerRating(beerRating, 18),
               ),
               Container(
-                margin: EdgeInsets.only(top: 8),
+                // constraints: BoxConstraints(maxWidth: 60),
+                margin: const EdgeInsets.symmetric(vertical: 4),
+                child: TagBeerType(beerType),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          Text('IBU'),
-                          Text(beerIBU.toString(),
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        const Text('IBU'),
+                        Text(
+                          beerIBU.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Text('ABV'),
-                          Text(beerABV.toString() + '%',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        const Text('ABV'),
+                        Text(
+                          '${beerABV.toString()}%',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -81,7 +78,7 @@ class BeerInfo extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 12, right: 8),
+          margin: const EdgeInsets.only(top: 12, right: 8),
           alignment: Alignment.centerRight,
           child: Icon(
             Icons.chevron_right,
@@ -95,14 +92,15 @@ class BeerInfo extends StatelessWidget {
 
 class BeerRating extends StatelessWidget {
   final int value;
-  const BeerRating({Key? key, this.value = 0}) : super(key: key);
+  final double iconSize;
+  const BeerRating(this.value, this.iconSize);
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(5, (index) {
         return IconTheme(
-          data: IconThemeData(color: Colors.orange, size: 18),
+          data: IconThemeData(color: Colors.orange, size: iconSize),
           child: Icon(
             index < value ? Icons.sports_bar : Icons.sports_bar_outlined,
           ),
@@ -126,21 +124,19 @@ class TagBeerType extends StatelessWidget {
     }
   }
 
-  const TagBeerType({Key? key, required this.beerType}) : super(key: key);
+  const TagBeerType(this.beerType);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        color: _getColorByBeerType(beerType),
-        borderRadius: BorderRadius.horizontal(
-          left: Radius.circular(8),
-          right: Radius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(6, 1, 6, 1),
-          child: Text(
-            beerType,
-          ),
+    return Material(
+      color: _getColorByBeerType(beerType),
+      borderRadius: const BorderRadius.horizontal(
+        left: Radius.circular(8),
+        right: Radius.circular(8),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(6, 1, 6, 1),
+        child: Text(
+          beerType,
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:two_beer/models/Beer.dart';
+import 'package:two_beer/models/beer.dart';
 import 'package:two_beer/repository/beer_repository.dart';
 
 void main() {

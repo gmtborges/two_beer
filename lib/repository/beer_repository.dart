@@ -1,4 +1,4 @@
-import 'package:two_beer/models/Beer.dart';
+import 'package:two_beer/models/beer.dart';
 
 class BeerRepository {
   BeerRepository();

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:two_beer/models/Beer.dart';
+import 'package:intl/intl.dart';
+import 'package:two_beer/models/beer.dart';
+import 'package:two_beer/screens/home/catalog/widgets/beer_info_widget.dart';
 
 class BeerDetails extends StatelessWidget {
   final Beer selectedBeer;
 
   const BeerDetails(this.selectedBeer);
+
+  String _formatDate(DateTime date) {
+    return DateFormat('dd MMM, yyyy').format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +26,51 @@ class BeerDetails extends StatelessWidget {
               BeerText(selectedBeer),
               Expanded(
                 child: Container(
-                  color: Colors.white,
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.fromLTRB(12, 22, 12, 12),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BeerRating(selectedBeer.score, 24),
+                      const SizedBox(
+                        height: 60,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 8,
+                        ),
+                        child: Text(
+                          _formatDate(
+                            selectedBeer.createdAt.toDate(),
+                          ),
+                          style: TextStyle(color: Colors.grey.shade600),
+                        ),
+                      ),
+                      Text(
+                        selectedBeer.obs ?? 'Sem descrição',
+                        style: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(right: 10),
+            margin: const EdgeInsets.only(right: 10, bottom: 64),
             width: 230,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
+              border: Border.all(color: Colors.grey.shade100),
               borderRadius: BorderRadius.circular(10),
             ),
             child: ClipRRect(
@@ -58,10 +99,13 @@ class BeerText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Colorado',
-            style: TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
+          Text(
+            selectedBeer.brand,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const Text(
             'CERVEJARIA',
@@ -74,7 +118,10 @@ class BeerText extends StatelessWidget {
           Text(
             selectedBeer.name,
             style: const TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const Text(
             'NOME',
@@ -87,7 +134,10 @@ class BeerText extends StatelessWidget {
           Text(
             selectedBeer.type,
             style: const TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const Text(
             'TIPO',
@@ -100,7 +150,10 @@ class BeerText extends StatelessWidget {
           Text(
             selectedBeer.ibu.toString(),
             style: const TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const Text(
             'IBU',
@@ -113,7 +166,10 @@ class BeerText extends StatelessWidget {
           Text(
             selectedBeer.abv.toString(),
             style: const TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const Text(
             'ABV',
