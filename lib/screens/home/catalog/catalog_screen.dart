@@ -10,51 +10,13 @@ class CatalogScreen extends StatefulWidget {
 }
 
 class _CatalogScreenState extends State<CatalogScreen> {
-  bool _isLoading = true;
-  List<Beer> _beers = [];
-
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  @override
-  void initState() {
-    _fetchBeers();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  Future<void> _fetchBeers() async {
-    List<Beer> _updatedBeers = [];
-    try {
-      firestore.collection('beers').get().then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((element) {
-          final beer = Beer(
-            name: element['name'] as String,
-            brand: element['brand'] as String,
-            createdAt: element['createdAt'] as Timestamp,
-            type: element['type'] as String,
-            ibu: element['ibu'] as int,
-            abv: double.parse(element['abv'].toString()),
-            score: element['score'] as int,
-            imgSrc: element['imgSrc'] as String,
-            isFavorite: element['isFavorite'] as bool,
-            obs: element['obs'] as String,
-          );
-          _updatedBeers.add(beer);
-        });
-        setState(() {
-          _beers = _updatedBeers;
-          _isLoading = false;
-        });
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+  CollectionReference<Beer> _getBeersRef() {
+    return firestore.collection('beers').withConverter<Beer>(
+          fromFirestore: (snapshot, _) => Beer.fromJson(snapshot.data()!),
+          toFirestore: (beer, _) => beer.toJson(),
+        );
   }
 
   @override
@@ -87,19 +49,40 @@ class _CatalogScreenState extends State<CatalogScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          if (_isLoading)
-            const Expanded(
-              child: Center(
-                child: CircularProgressIndicator(),
+      body: StreamBuilder<QuerySnapshot<Beer>>(
+        stream: _getBeersRef().snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Houve um erro ao buscar as cervejas',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 8),
+                    child: Icon(
+                      Icons.error,
+                      color: Colors.red.shade700,
+                      size: 24,
+                    ),
+                  )
+                ],
               ),
-            )
-          else
-            Expanded(
-              child: BeerList(_beers),
-            )
-        ],
+            );
+          }
+
+          final data = snapshot.requireData;
+
+          return BeerList(data.docs);
+        },
       ),
     );
   }

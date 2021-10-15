@@ -24,4 +24,33 @@ class Beer {
     required this.isFavorite,
     this.obs,
   });
+
+  Beer.fromJson(Map<String, dynamic> json)
+      : this(
+          name: json['name']! as String,
+          brand: json['brand']! as String,
+          createdAt: json['createdAt']! as Timestamp,
+          type: json['type']! as String,
+          ibu: json['ibu']! as int,
+          abv: double.parse(json['abv'].toString()),
+          score: json['score']! as int,
+          imgSrc: json['imgSrc']! as String,
+          isFavorite: json['isFavorite']! as bool,
+          obs: json['obs']! as String,
+        );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'brand': brand,
+      'createdAt': createdAt,
+      'type': type,
+      'ibu': ibu,
+      'abv': abv,
+      'score': score,
+      'imgSrc': imgSrc,
+      'isFavorite': isFavorite,
+      'obs': obs
+    };
+  }
 }
