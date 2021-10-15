@@ -10,8 +10,6 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
 
   Future<void> _saveBeer() async {
     String name = _nameController.text;
-
-    try {} catch (e) {}
   }
 
   @override

@@ -8,15 +8,15 @@ class BeerInfo extends StatelessWidget {
   final int beerRating;
   final bool isFavorite;
 
-  const BeerInfo(
-      {required Key key,
-      required this.beerType,
-      required this.isFavorite,
-      required this.beerIBU,
-      required this.beerABV,
-      required this.beerRating,
-      required this.beerName})
-      : super(key: key);
+  const BeerInfo({
+    required Key key,
+    required this.beerType,
+    required this.isFavorite,
+    required this.beerIBU,
+    required this.beerABV,
+    required this.beerRating,
+    required this.beerName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +35,12 @@ class BeerInfo extends StatelessWidget {
           margin: const EdgeInsets.only(top: 8),
           child: Column(
             children: [
-              Text(beerName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                beerName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: BeerRating(beerRating, 18),

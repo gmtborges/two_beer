@@ -16,7 +16,7 @@ class BeerCard extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
-        side: BorderSide(color: Colors.grey.shade300, width: 1),
+        side: BorderSide(color: Colors.grey.shade300),
       ),
       elevation: 2,
       child: Row(

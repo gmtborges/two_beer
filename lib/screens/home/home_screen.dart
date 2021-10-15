@@ -41,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
               MaterialStateProperty.all(const TextStyle(fontSize: 14)),
         ),
         child: NavigationBar(
-          height: 56,
+          height: 62,
           selectedIndex: _selectedIndex,
           onDestinationSelected: _onItemTapped,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           destinations: const [
             NavigationDestination(
               icon: Icon(Icons.list_alt),

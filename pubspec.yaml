@@ -21,25 +21,25 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  cloud_firestore: "^2.5.3"
+  cupertino_icons: ^1.0.2
+  firebase_core: "^1.7.0"
   flutter:
     sdk: flutter
 
   flutter_signin_button: ^2.0.0
-  firebase_core: "^1.7.0"
-  cloud_firestore: "^2.5.3"
+  intl: ^0.17.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  intl: ^0.17.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  mockito: ^5.0.16
   build_runner:
   code_builder:
+  flutter_test:
+    sdk: flutter
   lint: ^1.0.0
+  mockito: ^5.0.16
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
