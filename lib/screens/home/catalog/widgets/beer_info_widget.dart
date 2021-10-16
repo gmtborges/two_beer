@@ -26,9 +26,9 @@ class BeerInfo extends StatelessWidget {
           margin: const EdgeInsets.fromLTRB(0, 8, 8, 0),
           alignment: Alignment.centerRight,
           child: isFavorite
-              ? const Icon(Icons.star, color: Colors.amber, size: 20)
+              ? const Icon(Icons.favorite, color: Colors.red, size: 18)
               : const SizedBox(
-                  height: 20,
+                  height: 18,
                 ),
         ),
         Container(

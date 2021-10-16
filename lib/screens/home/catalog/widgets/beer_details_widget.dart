@@ -40,7 +40,23 @@ class BeerDetails extends StatelessWidget {
                     children: [
                       BeerRating(selectedBeer.score, 24),
                       const SizedBox(
-                        height: 60,
+                        height: 40,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            child: selectedBeer.isFavorite
+                                ? const Icon(
+                                    Icons.favorite,
+                                    size: 18,
+                                    color: Colors.red,
+                                  )
+                                : const SizedBox(
+                                    height: 18,
+                                  ),
+                          ),
+                        ],
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
@@ -50,7 +66,10 @@ class BeerDetails extends StatelessWidget {
                           _formatDate(
                             selectedBeer.createdAt.toDate(),
                           ),
-                          style: TextStyle(color: Colors.grey.shade600),
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                       Text(
