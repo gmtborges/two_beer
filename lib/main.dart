@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:two_beer/screens/home/home_screen.dart';
+
+import 'firebase_options.dart';
+import 'screens/home/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +33,8 @@ class InicializeFirebase extends StatefulWidget {
 }
 
 class _InicializeFirebaseState extends State<InicializeFirebase> {
-  final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp();
+  final Future<FirebaseApp> _firebaseApp =
+      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   @override
   void initState() {
