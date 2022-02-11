@@ -8,95 +8,30 @@ class BeerDetails extends StatelessWidget {
 
   const BeerDetails(this.selectedBeer);
 
-  String _formatDate(DateTime date) {
-    return DateFormat('dd MMM, yyyy').format(date);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.amber, elevation: 0),
-      backgroundColor: Colors.amber,
+      appBar: AppBar(backgroundColor: Colors.amber[800], elevation: 0),
+      backgroundColor: Colors.amber[800],
       body: Stack(
-        alignment: Alignment.centerRight,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BeerText(selectedBeer),
-              Expanded(
-                child: Container(
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.fromLTRB(12, 22, 12, 12),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BeerRating(selectedBeer.score, 24),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                            child: selectedBeer.isFavorite
-                                ? const Icon(
-                                    Icons.favorite,
-                                    size: 18,
-                                    color: Colors.red,
-                                  )
-                                : const SizedBox(
-                                    height: 18,
-                                  ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          _formatDate(
-                            selectedBeer.createdAt.toDate(),
-                          ),
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        selectedBeer.obs ?? 'Sem descrição',
-                        style: TextStyle(
-                          color: Colors.grey.shade800,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          BeerInfos(selectedBeer),
+          Positioned(
+            top: 160,
+            right: 5,
+            child: Container(
+              margin: const EdgeInsets.only(right: 10, bottom: 50),
+              width: 230,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade100),
+                borderRadius: BorderRadius.circular(10),
               ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 10, bottom: 64),
-            width: 230,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade100),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: FadeInImage.assetNetwork(
-                image: selectedBeer.imgSrc,
-                placeholder: 'img/img-placeholder.png',
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: FadeInImage.assetNetwork(
+                  image: selectedBeer.imgSrc,
+                  placeholder: 'img/img-placeholder.png',
+                ),
               ),
             ),
           ),
@@ -106,10 +41,27 @@ class BeerDetails extends StatelessWidget {
   }
 }
 
-class BeerText extends StatelessWidget {
+class BeerInfos extends StatelessWidget {
   final Beer selectedBeer;
 
-  const BeerText(this.selectedBeer);
+  const BeerInfos(this.selectedBeer);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BeerInfoUP(selectedBeer),
+        BeerInfoDown(selectedBeer),
+      ],
+    );
+  }
+}
+
+class BeerInfoUP extends StatelessWidget {
+  final Beer selectedBeer;
+
+  const BeerInfoUP(this.selectedBeer);
 
   @override
   Widget build(BuildContext context) {
@@ -196,6 +148,78 @@ class BeerText extends StatelessWidget {
                 TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BeerInfoDown extends StatelessWidget {
+  final Beer selectedBeer;
+  const BeerInfoDown(this.selectedBeer);
+
+  String _formatDate(DateTime date) {
+    return DateFormat('dd MMM, yyyy').format(date);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        width: double.maxFinite,
+        padding: const EdgeInsets.fromLTRB(12, 22, 12, 12),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BeerRating(selectedBeer.score, 24),
+            const SizedBox(
+              height: 24,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  child: selectedBeer.isFavorite
+                      ? const Icon(
+                          Icons.favorite,
+                          size: 18,
+                          color: Colors.red,
+                        )
+                      : const SizedBox(
+                          height: 18,
+                        ),
+                ),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(
+                vertical: 8,
+              ),
+              child: Text(
+                _formatDate(
+                  selectedBeer.createdAt.toDate(),
+                ),
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Text(
+              selectedBeer.obs ?? 'Sem descrição',
+              style: TextStyle(
+                color: Colors.grey.shade800,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
