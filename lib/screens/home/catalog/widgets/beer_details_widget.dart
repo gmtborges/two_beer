@@ -169,9 +169,8 @@ class BeerInfoDown extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(12, 22, 12, 12),
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8),
-            topRight: Radius.circular(8),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(10),
           ),
         ),
         child: Column(
