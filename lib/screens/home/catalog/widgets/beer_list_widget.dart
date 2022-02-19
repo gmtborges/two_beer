@@ -13,25 +13,32 @@ class BeerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return beers.isNotEmpty
-        ? ListView.builder(
-            itemCount: beers.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          BeerDetails(beers.elementAt(index).data()),
-                    ),
-                  );
-                },
-                child: BeerCard(
-                  beer: beers.elementAt(index).data(),
-                  key: Key(beers.elementAt(index).data().name),
-                ),
-              );
-            },
+        ? Container(
+            padding: const EdgeInsets.only(top: 10),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+            ),
+            child: ListView.builder(
+              itemCount: beers.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            BeerDetails(beers.elementAt(index).data()),
+                      ),
+                    );
+                  },
+                  child: BeerCard(
+                    beer: beers.elementAt(index).data(),
+                    key: Key(beers.elementAt(index).data().name),
+                  ),
+                );
+              },
+            ),
           )
         : Center(
             child: Column(

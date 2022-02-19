@@ -3,18 +3,36 @@ import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        width: double.maxFinite,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.amber[800],
+        elevation: 0,
+      ),
+      backgroundColor: Colors.amber[800],
+      body: Column(
+        children: [
+          const SizedBox(
+            width: double.maxFinite,
+            height: 40,
+            child: Text(
               'Perfil',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

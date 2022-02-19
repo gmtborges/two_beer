@@ -38,7 +38,7 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
               padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
               decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               ),
               child: Form(
                 key: _formKey,
