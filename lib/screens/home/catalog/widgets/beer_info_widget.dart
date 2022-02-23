@@ -80,7 +80,7 @@ class BeerInfo extends StatelessWidget {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 12, right: 8),
+          margin: const EdgeInsets.only(top: 12, right: 6),
           alignment: Alignment.centerRight,
           child: Icon(
             Icons.chevron_right,

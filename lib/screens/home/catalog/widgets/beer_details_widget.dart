@@ -14,24 +14,21 @@ class BeerDetails extends StatelessWidget {
       appBar: AppBar(backgroundColor: Colors.amber[800], elevation: 0),
       backgroundColor: Colors.amber[800],
       body: Stack(
+        alignment: Alignment.centerRight,
         children: [
           BeerInfos(selectedBeer),
-          Positioned(
-            top: 160,
-            right: 5,
-            child: Container(
-              margin: const EdgeInsets.only(right: 10, bottom: 50),
-              width: 230,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade100),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: FadeInImage.assetNetwork(
-                  image: selectedBeer.imgSrc,
-                  placeholder: 'img/img-placeholder.png',
-                ),
+          Container(
+            margin: const EdgeInsets.only(right: 10, bottom: 50),
+            width: 230,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade100),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: FadeInImage.assetNetwork(
+                image: selectedBeer.imgSrc,
+                placeholder: 'img/img-placeholder.png',
               ),
             ),
           ),
@@ -65,89 +62,91 @@ class BeerInfoUP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(32, 0, 0, 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            selectedBeer.brand,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+    return Flexible(
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(32, 0, 0, 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              selectedBeer.brand,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-          const Text(
-            'CERVEJARIA',
-            style:
-                TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            selectedBeer.name,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+            const Text(
+              'CERVEJARIA',
+              style:
+                  TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
             ),
-          ),
-          const Text(
-            'NOME',
-            style:
-                TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            selectedBeer.type,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+            const SizedBox(
+              height: 8,
             ),
-          ),
-          const Text(
-            'TIPO',
-            style:
-                TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            selectedBeer.ibu.toString(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+            Text(
+              selectedBeer.name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-          const Text(
-            'IBU',
-            style:
-                TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            selectedBeer.abv.toString(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+            const Text(
+              'NOME',
+              style:
+                  TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
             ),
-          ),
-          const Text(
-            'ABV',
-            style:
-                TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
-          ),
-        ],
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              selectedBeer.type,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const Text(
+              'TIPO',
+              style:
+                  TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              selectedBeer.ibu.toString(),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const Text(
+              'IBU',
+              style:
+                  TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              selectedBeer.abv.toString(),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const Text(
+              'ABV',
+              style:
+                  TextStyle(color: Colors.black26, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -163,7 +162,7 @@ class BeerInfoDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Container(
         width: double.maxFinite,
         padding: const EdgeInsets.fromLTRB(12, 22, 12, 12),
