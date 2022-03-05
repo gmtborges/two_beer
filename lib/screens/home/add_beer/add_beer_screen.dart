@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddBeerScreen extends StatefulWidget {
   @override
@@ -249,6 +252,7 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
                         )
                       ],
                     ),
+                    const BeerImage(),
                     BeerRating(),
                     Flexible(
                       child: Column(
@@ -300,7 +304,7 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
                       ],
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 12),
+                      margin: const EdgeInsets.symmetric(vertical: 16),
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
@@ -334,6 +338,96 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
   }
 }
 
+class BeerImage extends StatefulWidget {
+  const BeerImage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<BeerImage> createState() => _BeerImageState();
+}
+
+class _BeerImageState extends State<BeerImage> {
+  File? image;
+
+  Future _handleImage(ImageSource source) async {
+    try {
+      final tmpImage = await ImagePicker().pickImage(source: source);
+      if (tmpImage == null) return;
+
+      setState(() {
+        image = File(tmpImage.path);
+      });
+    } on PlatformException catch (e) {
+      print('Falha ao escolher imagem: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(5, 20, 0, 5),
+          child: const Text(
+            'Escolher imagem',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              width: 150,
+              child: OutlinedButton.icon(
+                onPressed: () => _handleImage(ImageSource.gallery),
+                icon: const Icon(Icons.collections),
+                label: const Text(
+                  'GALERIA',
+                  style: TextStyle(color: Colors.black87),
+                ),
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all(Colors.black54),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 150,
+              child: OutlinedButton.icon(
+                onPressed: () => _handleImage(ImageSource.camera),
+                icon: const Icon(Icons.camera_alt_rounded),
+                label: const Text(
+                  'FOTO',
+                  style: TextStyle(color: Colors.black87),
+                ),
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all(Colors.black54),
+                ),
+              ),
+            )
+          ],
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          child: Center(
+            child: image != null
+                ? Image.file(
+                    image!,
+                    width: 160,
+                    height: 160,
+                  )
+                : Image.asset(
+                    'img/img-placeholder.png',
+                    width: 180,
+                  ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
 class BeerRating extends StatefulWidget {
   @override
   State<BeerRating> createState() => _BeerRatingState();
@@ -345,27 +439,39 @@ class _BeerRatingState extends State<BeerRating> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 16, 0, 4),
-      child: Row(
-        children: List.generate(5, (index) {
-          return IconTheme(
-            data: const IconThemeData(color: Colors.orange, size: 28),
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  if (score == 1 && index == 0) {
-                    score = 0;
-                  } else {
-                    score = index + 1;
-                  }
-                });
-              },
-              icon: index < score
-                  ? const Icon(Icons.sports_bar)
-                  : const Icon(Icons.sports_bar_outlined),
+      margin: const EdgeInsets.fromLTRB(0, 8, 0, 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+            child: const Text(
+              'Nota',
+              style: TextStyle(fontSize: 16),
             ),
-          );
-        }),
+          ),
+          Row(
+            children: List.generate(5, (index) {
+              return IconTheme(
+                data: const IconThemeData(color: Colors.orange, size: 28),
+                child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (score == 1 && index == 0) {
+                        score = 0;
+                      } else {
+                        score = index + 1;
+                      }
+                    });
+                  },
+                  icon: index < score
+                      ? const Icon(Icons.sports_bar)
+                      : const Icon(Icons.sports_bar_outlined),
+                ),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }

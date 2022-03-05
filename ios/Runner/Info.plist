@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Para selecionar a imagem da cerveja</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Para tirar a foto da cerveja</string>
 </dict>
 </plist>
