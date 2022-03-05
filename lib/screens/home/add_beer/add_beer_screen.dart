@@ -145,7 +145,7 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
                               'Belgian Ale',
                               'India Pale Ale',
                               'American Pale Ale',
-                              'New England Pale Ale',
+                              'New England IPA',
                               'Bock',
                               'Dunkel',
                               'Porter',
@@ -254,34 +254,32 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
                     ),
                     const BeerImage(),
                     BeerRating(),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(5, 10, 0, 5),
-                            child: const Text(
-                              'Observações',
-                              style: TextStyle(fontSize: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(5, 10, 0, 5),
+                          child: const Text(
+                            'Observações',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          minLines: 4,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(12),
+                            isDense: true,
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
                             ),
                           ),
-                          TextFormField(
-                            keyboardType: TextInputType.multiline,
-                            minLines: 4,
-                            maxLines: null,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(12),
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Row(
                       children: [
