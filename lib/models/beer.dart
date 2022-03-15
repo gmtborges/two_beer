@@ -25,18 +25,18 @@ class Beer {
     this.obs,
   });
 
-  Beer.fromJson(Map<String, dynamic> json)
+  Beer.fromSnapshot(DocumentSnapshot doc)
       : this(
-          name: json['name']! as String,
-          brand: json['brand']! as String,
-          createdAt: json['createdAt']! as Timestamp,
-          type: json['type']! as String,
-          ibu: json['ibu']! as int,
-          abv: double.parse(json['abv'].toString()),
-          score: json['score']! as int,
-          imgSrc: json['imgSrc']! as String,
-          isFavorite: json['isFavorite']! as bool,
-          obs: json['obs']! as String,
+          name: doc['name']! as String,
+          brand: doc['brand']! as String,
+          createdAt: doc['createdAt']! as Timestamp,
+          type: doc['type']! as String,
+          ibu: doc['ibu']! as int,
+          abv: double.parse(doc['abv'].toString()),
+          score: doc['score']! as int,
+          imgSrc: doc['imgSrc']! as String,
+          isFavorite: doc['isFavorite']! as bool,
+          obs: doc['obs'] != null ? doc['obs'] as String : '',
         );
 
   Map<String, dynamic> toJson() {

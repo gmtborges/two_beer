@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:two_beer/blocs/catalog/beer_bloc.dart';
+import 'package:two_beer/repositories/beer_repository.dart';
 
 import 'firebase_options.dart';
 import 'screens/home/home_screen.dart';
@@ -13,14 +16,21 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'SourceSansPro',
-        colorScheme:
-            ColorScheme.fromSwatch().copyWith(primary: Colors.amber[800]),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => CatalogBeerBloc(BeerRepository()),
+        )
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'SourceSansPro',
+          colorScheme:
+              ColorScheme.fromSwatch().copyWith(primary: Colors.amber[800]),
+        ),
+        title: '2Beer',
+        home: const InicializeFirebase(),
       ),
-      title: '2Beer',
-      home: const InicializeFirebase(),
     );
   }
 }

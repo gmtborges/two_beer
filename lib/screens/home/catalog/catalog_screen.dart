@@ -14,7 +14,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
 
   CollectionReference<Beer> _getBeersRef() {
     return firestore.collection('beers').withConverter<Beer>(
-          fromFirestore: (snapshot, _) => Beer.fromJson(snapshot.data()!),
+          fromFirestore: (snapshot, _) => Beer.fromSnapshot(snapshot),
           toFirestore: (beer, _) => beer.toJson(),
         );
   }
