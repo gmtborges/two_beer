@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:two_beer/models/beer.dart';
 import 'package:two_beer/screens/home/catalog/widgets/beer_details_widget.dart';
@@ -6,7 +5,7 @@ import 'package:two_beer/screens/home/catalog/widgets/beer_details_widget.dart';
 import 'beer_card_widget.dart';
 
 class BeerList extends StatelessWidget {
-  final List<QueryDocumentSnapshot<Beer>> beers;
+  final List<Beer> beers;
 
   const BeerList(this.beers);
 
@@ -28,13 +27,13 @@ class BeerList extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            BeerDetails(beers.elementAt(index).data()),
+                            BeerDetails(beers.elementAt(index)),
                       ),
                     );
                   },
                   child: BeerCard(
-                    beer: beers.elementAt(index).data(),
-                    key: Key(beers.elementAt(index).data().name),
+                    beer: beers.elementAt(index),
+                    key: Key(beers.elementAt(index).name),
                   ),
                 );
               },

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:two_beer/blocs/catalog/beer_bloc.dart';
+import 'package:two_beer/blocs/catalog/catalog_beer_bloc.dart';
 import 'package:two_beer/repositories/beer_repository.dart';
 
 import 'firebase_options.dart';
@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => CatalogBeerBloc(BeerRepository()),
+          create: (_) =>
+              CatalogBeerBloc(BeerRepository())..add(CatalogBeerFetchEvent()),
         )
       ],
       child: MaterialApp(

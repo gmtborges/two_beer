@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:two_beer/models/beer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:two_beer/blocs/catalog/catalog_beer_bloc.dart';
 
 import 'widgets/beer_list_widget.dart';
 
@@ -10,15 +10,6 @@ class CatalogScreen extends StatefulWidget {
 }
 
 class _CatalogScreenState extends State<CatalogScreen> {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  CollectionReference<Beer> _getBeersRef() {
-    return firestore.collection('beers').withConverter<Beer>(
-          fromFirestore: (snapshot, _) => Beer.fromSnapshot(snapshot),
-          toFirestore: (beer, _) => beer.toJson(),
-        );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,10 +51,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
             ),
           ),
           Expanded(
-            child: StreamBuilder<QuerySnapshot<Beer>>(
-              stream: _getBeersRef().snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+            child: BlocBuilder<CatalogBeerBloc, CatalogBeerState>(
+              builder: (context, state) {
+                if (state is CatalogBeerLoadingState) {
                   return Container(
                     padding: const EdgeInsets.only(top: 10),
                     decoration: const BoxDecoration(
@@ -76,7 +66,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     ),
                   );
                 }
-                if (snapshot.hasError) {
+                if (state is CatalogBeerDataState) {
+                  return BeerList(state.beers);
+                } else {
                   return Container(
                     padding: const EdgeInsets.only(top: 10),
                     decoration: const BoxDecoration(
@@ -105,10 +97,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     ),
                   );
                 }
-
-                final data = snapshot.requireData;
-
-                return BeerList(data.docs);
               },
             ),
           ),

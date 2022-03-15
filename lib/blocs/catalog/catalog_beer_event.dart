@@ -1,4 +1,4 @@
-part of 'beer_bloc.dart';
+part of 'catalog_beer_bloc.dart';
 
 @immutable
 abstract class CatalogBeerEvent extends Equatable {
@@ -8,12 +8,12 @@ abstract class CatalogBeerEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CatalogBeerLoadEvent extends CatalogBeerEvent {}
+class CatalogBeerFetchEvent extends CatalogBeerEvent {}
 
-class CatalogBeerUpdateEvent extends CatalogBeerEvent {
+class CatalogBeerUpdateDataEvent extends CatalogBeerEvent {
   final List<Beer> beers;
 
-  const CatalogBeerUpdateEvent(this.beers);
+  const CatalogBeerUpdateDataEvent(this.beers);
 
   @override
   List<Object> get props => [beers];
