@@ -4,9 +4,7 @@ import 'package:two_beer/models/beer.dart';
 class BeerRepository {
   final FirebaseFirestore _firebaseFirestore;
 
-  BeerRepository({
-    FirebaseFirestore? firebaseFirestore,
-  }) : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
+  BeerRepository(this._firebaseFirestore);
 
   Stream<List<Beer>> fetchAllBeers() {
     return _firebaseFirestore.collection('beers').snapshots().map((snap) {

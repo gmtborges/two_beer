@@ -13,8 +13,6 @@ class _AddBeerScreenState extends State<AddBeerScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isFavorite = false;
 
-  Future<void> _saveBeer() async {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

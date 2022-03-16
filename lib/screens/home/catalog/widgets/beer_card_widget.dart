@@ -20,7 +20,6 @@ class BeerCard extends StatelessWidget {
       ),
       elevation: 2,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: beer.imgSrc != ''
